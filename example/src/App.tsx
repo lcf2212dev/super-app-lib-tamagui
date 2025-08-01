@@ -1,10 +1,18 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { TamaguiProvider } from '@tamagui/core';
+import { View, StyleSheet } from 'react-native';
+import { TamaguiProvider, Text } from '@tamagui/core';
+import { useFonts } from 'expo-font';
 import { multiply, DscButton, tamaguiConfig } from 'super-app-lib-tamagui';
+import { fontAssets } from '../../src/assets/fonts';
 
 const result = multiply(3, 7);
 
 export default function App() {
+  const [fontsLoaded] = useFonts(fontAssets);
+  
+  if (!fontsLoaded) {
+    return null;
+  }
+  
   const handlePress = () => console.log("Button Pressed");
   
   return (

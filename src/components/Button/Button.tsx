@@ -31,6 +31,8 @@ const DscButton: React.FC<Props> = ({
       padding="$2"
       borderRadius="$2"
       color="white"
+      fontSize="$4"
+      fontWeight="$6"
       {...rest}
     >
       {children}

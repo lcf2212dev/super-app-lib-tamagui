@@ -1,6 +1,6 @@
 # Super App Lib Tamagui
 
-Uma biblioteca React Native com componentes Tamagui personalizados.
+Uma biblioteca React Native com componentes Tamagui personalizados, compatível com **Expo**, **Re.Pack** e **React Native CLI**.
 
 ## Instalação
 
@@ -20,6 +20,14 @@ npm install react react-native
 yarn add react react-native
 ```
 
+## Configuração de Fontes
+
+Esta lib utiliza fontes customizadas. A configuração varia por ambiente:
+
+- **Expo**: Veja [FONTS.md](./FONTS.md#para-projetos-expo)
+- **Re.Pack/Webpack**: Veja [FONTS.md](./FONTS.md#para-projetos-repack-webpack)  
+- **React Native CLI**: Veja [FONTS.md](./FONTS.md#para-projetos-react-native-cli)
+
 ## Uso
 
 ### Configuração
@@ -29,14 +37,39 @@ A biblioteca já inclui uma configuração Tamagui pré-configurada. Para usar o
 ```tsx
 import React from 'react';
 import { TamaguiProvider } from '@tamagui/core';
-import { tamaguiConfig } from 'super-app-lib-tamagui';
+import { tamaguiConfig, useTamaguiFonts } from 'super-app-lib-tamagui';
 import { YourApp } from './YourApp';
 
 export default function App() {
+  const { fontsLoaded } = useTamaguiFonts();
+  
+  if (!fontsLoaded) {
+    return <LoadingScreen />; // Seu componente de loading
+  }
+  
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
       <YourApp />
     </TamaguiProvider>
+  );
+}
+```
+
+### Fontes Globais
+
+A lib está configurada para usar **LibertinusSerif** como fonte padrão global. Todos os componentes Tamagui automaticamente usarão esta fonte.
+
+Para aproveitar a fonte global, use componentes do Tamagui ao invés do React Native:
+
+```tsx
+import { Text, View } from '@tamagui/core'; // ✅ Usará LibertinusSerif
+// import { Text, View } from 'react-native'; // ❌ Não usará a fonte customizada
+
+export function MyComponent() {
+  return (
+    <View>
+      <Text>Este texto usará LibertinusSerif automaticamente</Text>
+    </View>
   );
 }
 ```
@@ -49,7 +82,7 @@ Um botão personalizado baseado no Tamagui Button:
 
 ```tsx
 import React from 'react';
-import { View } from 'react-native';
+import { View } from '@tamagui/core';
 import { DscButton } from 'super-app-lib-tamagui';
 
 export function MyComponent() {

@@ -10,6 +10,16 @@
       "types": "./lib/typescript/src/index.d.ts",
       "default": "./lib/module/index.js"
     },
+    "./fonts": {
+      "source": "./src/assets/fonts/index.ts",
+      "types": "./lib/typescript/src/assets/fonts/index.d.ts",
+      "default": "./lib/module/assets/fonts/index.js"
+    },
+    "./hooks": {
+      "source": "./src/hooks/useTamaguiFonts.ts",
+      "types": "./lib/typescript/src/hooks/useTamaguiFonts.d.ts",
+      "default": "./lib/module/hooks/useTamaguiFonts.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
