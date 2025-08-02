@@ -10,23 +10,77 @@ npm install super-app-lib-tamagui
 yarn add super-app-lib-tamagui
 ```
 
-## Dependências
+## Dependências Incluídas
 
-Esta biblioteca requer as seguintes peer dependencies:
+Esta biblioteca já inclui as seguintes dependências:
 
-```bash
-npm install react react-native
-# ou
-yarn add react react-native
+- `@tamagui/core` - Sistema de design principal
+- `@tamagui/button` - Componente Button do Tamagui
+- `@tamagui/config` - Configuração padrão do Tamagui
+- `iconoir-react-native` - Biblioteca de ícones SVG
+- `react-native-svg` - Renderização de SVG
+
+> **Importante**: Não instale versões diferentes dessas dependências no seu projeto para evitar conflitos.
+
+## Configuração por Ambiente
+
+### Para projetos Expo
+Veja [FONTS.md](./FONTS.md#para-projetos-expo)
+
+### Para projetos React Native CLI
+Veja [FONTS.md](./FONTS.md#para-projetos-react-native-cli)
+
+### Para projetos Re.Pack (Webpack)
+
+**1. Configuração de fontes:** Veja [FONTS.md](./FONTS.md#para-projetos-repack-webpack)
+
+**2. Configuração de SVG:** Adicione ao seu `webpack.config.js`:
+
+```javascript
+// webpack.config.js ou re.pack.config.js
+const {getInitializationEntries} = require('@callstack/repack');
+
+module.exports = {
+  // ... outras configurações
+  module: {
+    rules: [
+      // ... outras rules
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              native: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  resolve: {
+    alias: {
+      // Garante compatibilidade com react-native-svg
+      'react-native-svg': 'react-native-svg/lib/commonjs',
+    },
+  },
+};
 ```
 
-## Configuração de Fontes
+**3. Para Metro Resolver (se usar híbrido):** Adicione ao `metro.config.js`:
 
-Esta lib utiliza fontes customizadas. A configuração varia por ambiente:
-
-- **Expo**: Veja [FONTS.md](./FONTS.md#para-projetos-expo)
-- **Re.Pack/Webpack**: Veja [FONTS.md](./FONTS.md#para-projetos-repack-webpack)  
-- **React Native CLI**: Veja [FONTS.md](./FONTS.md#para-projetos-react-native-cli)
+```javascript
+// metro.config.js
+module.exports = {
+  transformer: {
+    assetPlugins: ['expo-asset/tools/hashAssetFiles'],
+  },
+  resolver: {
+    assetExts: ['bin', 'txt', 'jpg', 'png', 'json', 'svg'],
+    sourceExts: ['js', 'json', 'ts', 'tsx', 'jsx'],
+  },
+};
+```
 
 ## Uso
 
@@ -75,6 +129,49 @@ export function MyComponent() {
 ```
 
 ### Componentes Disponíveis
+
+#### Ícones Iconoir
+
+A biblioteca inclui todos os ícones do **Iconoir** prontos para uso:
+
+```tsx
+import React from 'react';
+import { View, Stack } from '@tamagui/core';
+import { Button } from '@tamagui/button';
+import { Heart, Settings, Home, User } from 'iconoir-react-native';
+
+export function MyComponent() {
+  return (
+    <Stack space="$4">
+      <Button icon={<Heart color="red" size={20} />}>
+        Favoritar
+      </Button>
+      
+      <Button 
+        variant="outlined"
+        icon={<Settings color="$color" size={20} />}
+      >
+        Configurações
+      </Button>
+      
+      {/* Ícones standalone */}
+      <View>
+        <Home color="$blue10" size={24} />
+        <User color="$gray10" size={24} />
+      </View>
+    </Stack>
+  );
+}
+```
+
+**Ícones populares disponíveis:**
+- **Navegação**: `Home`, `Menu`, `ArrowLeft`, `ArrowRight`, `Search`
+- **Ações**: `Settings`, `Plus`, `Minus`, `Edit`, `Delete`, `Save`, `Check`, `X`
+- **Social**: `Heart`, `HeartSolid`, `Star`, `User`, `Users`, `Share`
+- **Comunicação**: `Bell`, `Mail`, `Phone`, `Message`
+- **Sistema**: `Download`, `Upload`, `Lock`, `Eye`, `EyeOff`
+
+E [muitos outros ícones](https://iconoir.com/) disponíveis!
 
 #### DscButton
 
