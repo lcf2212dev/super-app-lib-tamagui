@@ -8,7 +8,7 @@ import { Platform } from 'react-native';
 export function useTamaguiFonts() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  
+
   useEffect(() => {
     const loadFonts = async () => {
       try {
@@ -17,7 +17,7 @@ export function useTamaguiFonts() {
           setFontsLoaded(true);
           return;
         }
-        
+
         // Para React Native nativo, assumir que as fontes foram configuradas
         // no android/app/src/main/assets/fonts/ e ios/[ProjectName]/Fonts/
         setFontsLoaded(true);
@@ -25,10 +25,10 @@ export function useTamaguiFonts() {
         setError(err as Error);
       }
     };
-    
+
     loadFonts();
   }, []);
-  
+
   return { fontsLoaded, error };
 }
 

@@ -1,5 +1,6 @@
 import { createTamagui } from '@tamagui/core';
-import { config } from '@tamagui/config/v3';
+import { defaultConfig } from '@tamagui/config/v4';
+import { themes } from './themes';
 
 const fonts = {
   body: {
@@ -51,9 +52,18 @@ const fonts = {
       16: -7.23,
     },
     face: {
-      400: { normal: 'LibertinusSerif-Regular', italic: 'LibertinusSerif-Italic' },
-      600: { normal: 'LibertinusSerif-SemiBold', italic: 'LibertinusSerif-SemiBoldItalic' },
-      700: { normal: 'LibertinusSerif-Bold', italic: 'LibertinusSerif-BoldItalic' },
+      400: {
+        normal: 'LibertinusSerif-Regular',
+        italic: 'LibertinusSerif-Italic',
+      },
+      600: {
+        normal: 'LibertinusSerif-SemiBold',
+        italic: 'LibertinusSerif-SemiBoldItalic',
+      },
+      700: {
+        normal: 'LibertinusSerif-Bold',
+        italic: 'LibertinusSerif-BoldItalic',
+      },
     },
   },
   heading: {
@@ -95,25 +105,30 @@ const fonts = {
       16: -7.23,
     },
     face: {
-      600: { normal: 'LibertinusSerif-SemiBold', italic: 'LibertinusSerif-SemiBoldItalic' },
-      700: { normal: 'LibertinusSerif-Bold', italic: 'LibertinusSerif-BoldItalic' },
+      600: {
+        normal: 'LibertinusSerif-SemiBold',
+        italic: 'LibertinusSerif-SemiBoldItalic',
+      },
+      700: {
+        normal: 'LibertinusSerif-Bold',
+        italic: 'LibertinusSerif-BoldItalic',
+      },
     },
   },
 };
 
-const tamaguiConfig = createTamagui({
-  ...config,
+export const config = createTamagui({
+  ...defaultConfig,
+  themes,
   fonts: {
-    ...config.fonts,
+    ...defaultConfig.fonts,
     body: fonts.body,
     heading: fonts.heading,
   },
   defaultFont: 'body',
 });
 
-export default tamaguiConfig;
-
-export type AppConfig = typeof tamaguiConfig;
+export type AppConfig = typeof config;
 
 declare module '@tamagui/core' {
   interface TamaguiCustomConfig extends AppConfig {}

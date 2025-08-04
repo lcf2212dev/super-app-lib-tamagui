@@ -72,8 +72,10 @@
   },
   "dependencies": {
     "@tamagui/button": "1.132.15",
+    "@tamagui/colors": "^1.132.15",
     "@tamagui/config": "1.132.15",
     "@tamagui/core": "1.132.15",
+    "@tamagui/theme-builder": "^1.132.15",
     "iconoir-react-native": "^7.9.0",
     "react-native-svg": "^15.12.1"
   },

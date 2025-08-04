@@ -12,6 +12,8 @@ export const fontAssets = {
 export const LibertinusSerifRegular = fontAssets['LibertinusSerif-Regular'];
 export const LibertinusSerifItalic = fontAssets['LibertinusSerif-Italic'];
 export const LibertinusSerifSemiBold = fontAssets['LibertinusSerif-SemiBold'];
-export const LibertinusSerifSemiBoldItalic = fontAssets['LibertinusSerif-SemiBoldItalic'];
+export const LibertinusSerifSemiBoldItalic =
+  fontAssets['LibertinusSerif-SemiBoldItalic'];
 export const LibertinusSerifBold = fontAssets['LibertinusSerif-Bold'];
-export const LibertinusSerifBoldItalic = fontAssets['LibertinusSerif-BoldItalic'];
+export const LibertinusSerifBoldItalic =
+  fontAssets['LibertinusSerif-BoldItalic'];

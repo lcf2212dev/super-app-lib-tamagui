@@ -1,43 +1,85 @@
-import React from "react";
-import { Button, type ButtonProps } from "@tamagui/button";
-import { type GestureResponderEvent } from "react-native";
+import React from 'react';
+import { Button } from '@tamagui/button';
+import { Theme } from '@tamagui/core';
+import { type DscButtonProps } from './Button.model';
+import { sizeConfigs, typeConfigs } from './configs';
+import { type ButtonTypeConfig, type ButtonStyleConfig } from './Button.model';
 
-interface Props extends Omit<ButtonProps, 'onPress'> {
-  disabled?: boolean;
-  color?: string;
-  accessibilityLabel?: string;
-  onPress: (event: GestureResponderEvent) => void;
-  children?: React.ReactNode;
-}
-
-const DscButton: React.FC<Props> = ({
-  disabled = false,
-  color = "red",
-  accessibilityLabel = "A Button",
+const DscButtonComponent: React.FC<DscButtonProps> = ({
   onPress,
-  children = "Press Mee",
-  ...rest
+  children = 'Press Me',
+  color = 'highlight',
+  size = 'default',
+  type = 'plain',
+  disabled = false,
+  loading = false,
+  icon,
+  iconAfter,
 }) => {
+  const sizeStyles = sizeConfigs[size];
+  const typeConfig = typeConfigs[type];
+  const stateStyles = getStateStyles(typeConfig, disabled, loading);
+  const interactionStyles = buildInteractionStyles(
+    typeConfig,
+    disabled,
+    loading
+  );
+
+  const buttonProps = {
+    onPress,
+    disabled: disabled || loading,
+    icon,
+    iconAfter,
+    borderRadius: '$12',
+    ...sizeStyles,
+    ...stateStyles,
+    ...interactionStyles,
+  };
+
   return (
-    <Button
-      backgroundColor={disabled ? "#ccc" : color}
-      pressStyle={{
-        backgroundColor: disabled ? "#ccc" : "#aaff00",
-      }}
-      disabled={disabled}
-      onPress={onPress}
-      accessible
-      accessibilityLabel={accessibilityLabel}
-      padding="$2"
-      borderRadius="$2"
-      color="white"
-      fontSize="$4"
-      fontWeight="$6"
-      {...rest}
-    >
-      {children}
-    </Button>
+    <Theme name={color === 'accent' ? 'accent' : null}>
+      <Button {...(buttonProps as any)}>{loading ? '...' : children}</Button>
+    </Theme>
   );
 };
+
+const getStateStyles = (
+  typeConfig: ButtonTypeConfig,
+  disabled: boolean,
+  loading: boolean
+): ButtonStyleConfig => {
+  if (loading) return typeConfig.loading;
+  if (disabled) return typeConfig.disabled;
+  return typeConfig.base;
+};
+
+const buildInteractionStyles = (
+  typeConfig: ButtonTypeConfig,
+  disabled: boolean,
+  loading: boolean
+) => {
+  if (disabled || loading) return {};
+
+  return {
+    hoverStyle: typeConfig.hover,
+    pressStyle: typeConfig.press,
+    focusStyle: typeConfig.focus,
+  };
+};
+
+// Memoização com comparação otimizada para performance
+const DscButton = React.memo(DscButtonComponent, (prevProps, nextProps) => {
+  return (
+    prevProps.children === nextProps.children &&
+    prevProps.color === nextProps.color &&
+    prevProps.size === nextProps.size &&
+    prevProps.type === nextProps.type &&
+    prevProps.disabled === nextProps.disabled &&
+    prevProps.loading === nextProps.loading &&
+    prevProps.onPress === nextProps.onPress &&
+    prevProps.icon === nextProps.icon &&
+    prevProps.iconAfter === nextProps.iconAfter
+  );
+});
 
 export default DscButton;
