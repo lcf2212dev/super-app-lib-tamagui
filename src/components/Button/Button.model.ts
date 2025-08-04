@@ -28,6 +28,7 @@ export interface ButtonSizeConfig {
   paddingHorizontal: number;
   fontSize: number;
   space: number;
+  iconSize: number;
 }
 
 type TamaguiButtonProps = GetProps<typeof Button>;

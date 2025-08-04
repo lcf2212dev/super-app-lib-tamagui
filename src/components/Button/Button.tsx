@@ -4,6 +4,7 @@ import { Theme } from '@tamagui/core';
 import { type DscButtonProps } from './Button.model';
 import { sizeConfigs, typeConfigs } from './configs';
 import { type ButtonTypeConfig, type ButtonStyleConfig } from './Button.model';
+import { transformIconSize } from '../../utils/icon-size-transformer';
 
 const DscButtonComponent: React.FC<DscButtonProps> = ({
   onPress,
@@ -25,11 +26,15 @@ const DscButtonComponent: React.FC<DscButtonProps> = ({
     loading
   );
 
+  // Aplicar tamanhos específicos nos ícones
+  const processedIcon = transformIconSize(icon, sizeStyles.iconSize);
+  const processedIconAfter = transformIconSize(iconAfter, sizeStyles.iconSize);
+
   const buttonProps = {
     onPress,
     disabled: disabled || loading,
-    icon,
-    iconAfter,
+    icon: processedIcon,
+    iconAfter: processedIconAfter,
     borderRadius: '$12',
     ...sizeStyles,
     ...stateStyles,

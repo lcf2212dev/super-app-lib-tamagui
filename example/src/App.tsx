@@ -12,6 +12,8 @@ import {
   Plus,
   Edit,
 } from 'iconoir-react-native';
+import { Button } from '@tamagui/button';
+import { Heart as LucideHeart } from '@tamagui/lucide-icons';
 
 export default function App() {
   const [fontsLoaded] = useFonts(fontAssets);
@@ -30,6 +32,43 @@ export default function App() {
         style={styles.container}
         contentContainerStyle={styles.content}
       >
+        <Button icon={<LucideHeart size="$4" />}>
+    Hello world
+  </Button>
+        <Button icon={<LucideHeart size={8} />} scaleIcon={0.1}>Small Lucide Heart</Button>
+        <Button icon={<LucideHeart size='$4' />} scaleIcon={1.0}>Normal Lucide Heart</Button>
+        <Button icon={<LucideHeart size='$4' />} scaleIcon={2.0}>Large Lucide Heart</Button>
+
+        <Button icon={<Plus size='$4' />} scaleIcon={0.1}>Small Plus</Button>
+        <Button icon={<Plus />} scaleIcon={1.0}>Normal Plus</Button>
+        <Button icon={<Plus />} scaleIcon={2.0}>Large Plus</Button>
+
+        <Text style={styles.sectionTitle}>Icon Scaling Test</Text>
+        <Text style={styles.subTitle}>DscButton with different sizes (scaleIcon auto-applied)</Text>
+        <View style={styles.section}>
+          <DscButton onPress={handlePress} color="highlight" icon={<Heart />} size="small">
+            Iconoir Heart (Small)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={Heart} size="small">
+            Iconoir Heart 2 (Small)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={LucideHeart} size="small">
+            Lucide Heart (Small)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={Heart} size="default">
+            Iconoir Heart (Default)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={LucideHeart} size="default">
+            Lucide Heart (Default)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={Heart} size="large">
+            Iconoir Heart (Large)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={LucideHeart} size="large">
+            Lucide Heart (Large)
+          </DscButton>
+        </View>
+
         <Text style={styles.sectionTitle}>Highlight Buttons</Text>
 
         <Text style={styles.subTitle}>Sizes</Text>
@@ -182,8 +221,11 @@ export default function App() {
 
         <Text style={styles.subTitle}>Icon Before</Text>
         <View style={styles.section}>
-          <DscButton onPress={handlePress} color="highlight" icon={<Heart />}>
-            Like
+          <DscButton onPress={handlePress} color="highlight" icon={Heart} size="small">
+            Like (Iconoir Small)
+          </DscButton>
+          <DscButton onPress={handlePress} color="highlight" icon={LucideHeart} size="small">
+            Like (Lucide Small)
           </DscButton>
           <DscButton onPress={handlePress} color="accent" icon={Settings}>
             Settings
@@ -192,7 +234,7 @@ export default function App() {
             onPress={handlePress}
             color="highlight"
             type="outline"
-            icon={<Download />}
+            icon={Download}
           >
             Download
           </DscButton>
@@ -203,18 +245,18 @@ export default function App() {
           <DscButton
             onPress={handlePress}
             color="highlight"
-            iconAfter={<ArrowRight />}
+            iconAfter={ArrowRight}
           >
             Next
           </DscButton>
-          <DscButton onPress={handlePress} color="accent" iconAfter={<Plus />}>
+          <DscButton onPress={handlePress} color="accent" iconAfter={Plus}>
             Add Item
           </DscButton>
           <DscButton
             onPress={handlePress}
             color="highlight"
             type="chromeless"
-            iconAfter={<Edit />}
+            iconAfter={Edit}
           >
             Edit
           </DscButton>
@@ -225,8 +267,8 @@ export default function App() {
           <DscButton
             onPress={handlePress}
             color="highlight"
-            icon={<Settings />}
-            iconAfter={<ArrowRight />}
+            icon={Settings}
+            iconAfter={ArrowRight}
           >
             Configure
           </DscButton>
@@ -234,8 +276,8 @@ export default function App() {
             onPress={handlePress}
             color="accent"
             type="outline"
-            icon={<Heart />}
-            iconAfter={<Plus />}
+            icon={Heart}
+            iconAfter={Plus}
           >
             Add to Favorites
           </DscButton>
@@ -243,8 +285,8 @@ export default function App() {
             onPress={handlePress}
             color="highlight"
             type="chromeless"
-            icon={<Download />}
-            iconAfter={<Edit />}
+            icon={Download}
+            iconAfter={Edit}
             size="large"
           >
             Download & Edit
